@@ -61,9 +61,9 @@ namespace Strava.NET.Api
         /// Initializes a new instance of the <see cref="RoutesApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public RoutesApi(String basePath)
+        public RoutesApi(string basePath)
         {
-            this.ApiClient = new ApiClient(basePath);
+            ApiClient = new ApiClient(basePath);
         }
     
         /// <summary>
@@ -71,9 +71,9 @@ namespace Strava.NET.Api
         /// </summary>
         /// <param name="basePath">The base path</param>
         /// <value>The base path</value>
-        public void SetBasePath(String basePath)
+        public void SetBasePath(string basePath)
         {
-            this.ApiClient.BasePath = basePath;
+            ApiClient.BasePath = basePath;
         }
     
         /// <summary>
@@ -81,9 +81,9 @@ namespace Strava.NET.Api
         /// </summary>
         /// <param name="basePath">The base path</param>
         /// <value>The base path</value>
-        public String GetBasePath(String basePath)
+        public string GetBasePath()
         {
-            return this.ApiClient.BasePath;
+            return ApiClient.BasePath;
         }
     
         /// <summary>
@@ -108,18 +108,18 @@ namespace Strava.NET.Api
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "id" + "}", ApiClient.ParameterToString(id));
     
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
                                                     
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetRouteAsGPX: " + response.Content, response.Content);
@@ -145,18 +145,18 @@ namespace Strava.NET.Api
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "id" + "}", ApiClient.ParameterToString(id));
     
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
                                                     
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetRouteAsTCX: " + response.Content, response.Content);
@@ -182,18 +182,18 @@ namespace Strava.NET.Api
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "id" + "}", ApiClient.ParameterToString(id));
     
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
                                                     
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetRouteById: " + response.Content, response.Content);
@@ -221,20 +221,20 @@ namespace Strava.NET.Api
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "id" + "}", ApiClient.ParameterToString(id));
     
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
              if (page != null) queryParams.Add("page", ApiClient.ParameterToString(page)); // query parameter
  if (perPage != null) queryParams.Add("per_page", ApiClient.ParameterToString(perPage)); // query parameter
                                         
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetRoutesByAthleteId: " + response.Content, response.Content);

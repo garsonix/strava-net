@@ -1,8 +1,7 @@
-using System;
-using System.Collections.Generic;
 using RestSharp;
 using Strava.NET.Client;
 using Strava.NET.Model;
+using System.Collections.Generic;
 
 namespace Strava.NET.Api
 {
@@ -53,9 +52,9 @@ namespace Strava.NET.Api
         /// Initializes a new instance of the <see cref="UploadsApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public UploadsApi(String basePath)
+        public UploadsApi(string basePath)
         {
-            this.ApiClient = new ApiClient(basePath);
+            ApiClient = new ApiClient(basePath);
         }
     
         /// <summary>
@@ -63,9 +62,9 @@ namespace Strava.NET.Api
         /// </summary>
         /// <param name="basePath">The base path</param>
         /// <value>The base path</value>
-        public void SetBasePath(String basePath)
+        public void SetBasePath(string basePath)
         {
-            this.ApiClient.BasePath = basePath;
+            ApiClient.BasePath = basePath;
         }
     
         /// <summary>
@@ -73,9 +72,9 @@ namespace Strava.NET.Api
         /// </summary>
         /// <param name="basePath">The base path</param>
         /// <value>The base path</value>
-        public String GetBasePath(String basePath)
+        public string GetBasePath()
         {
-            return this.ApiClient.BasePath;
+            return ApiClient.BasePath;
         }
     
         /// <summary>
@@ -102,25 +101,25 @@ namespace Strava.NET.Api
             var path = "/uploads";
             path = path.Replace("{format}", "json");
                 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
-                                    if (file != null) fileParams.Add("file", ApiClient.ParameterToFile("file", file));
-if (name != null) formParams.Add("name", ApiClient.ParameterToString(name)); // form parameter
-if (description != null) formParams.Add("description", ApiClient.ParameterToString(description)); // form parameter
-if (trainer != null) formParams.Add("trainer", ApiClient.ParameterToString(trainer)); // form parameter
-if (commute != null) formParams.Add("commute", ApiClient.ParameterToString(commute)); // form parameter
-if (dataType != null) formParams.Add("data_type", ApiClient.ParameterToString(dataType)); // form parameter
-if (externalId != null) formParams.Add("external_id", ApiClient.ParameterToString(externalId)); // form parameter
+            if (file != null) fileParams.Add("file", ApiClient.ParameterToFile("file", file));
+            if (name != null) formParams.Add("name", ApiClient.ParameterToString(name)); // form parameter
+            if (description != null) formParams.Add("description", ApiClient.ParameterToString(description)); // form parameter
+            if (trainer != null) formParams.Add("trainer", ApiClient.ParameterToString(trainer)); // form parameter
+            if (commute != null) formParams.Add("commute", ApiClient.ParameterToString(commute)); // form parameter
+            if (dataType != null) formParams.Add("data_type", ApiClient.ParameterToString(dataType)); // form parameter
+            if (externalId != null) formParams.Add("external_id", ApiClient.ParameterToString(externalId)); // form parameter
                 
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateUpload: " + response.Content, response.Content);
@@ -146,18 +145,18 @@ if (externalId != null) formParams.Add("external_id", ApiClient.ParameterToStrin
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "uploadId" + "}", ApiClient.ParameterToString(uploadId));
     
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
                                                     
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetUploadById: " + response.Content, response.Content);

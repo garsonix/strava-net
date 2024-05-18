@@ -41,13 +41,13 @@ namespace Strava.NET.Client
         /// Gets or sets the API key based on the authentication name.
         /// </summary>
         /// <value>The API key.</value>
-        public static Dictionary<String, String> ApiKey = new Dictionary<String, String>();
+        public static Dictionary<String, String> ApiKey = new Dictionary<string, string>();
   
         /// <summary>
         /// Gets or sets the prefix (e.g. Token) of the API key based on the authentication name.
         /// </summary>
         /// <value>The prefix of the API key.</value>
-        public static Dictionary<String, String> ApiKeyPrefix = new Dictionary<String, String>();
+        public static Dictionary<String, String> ApiKeyPrefix = new Dictionary<string, string>();
   
         private static string _tempFolderPath = Path.GetTempPath();
   

@@ -163,11 +163,11 @@ namespace Strava.NET.Api
             var path = "/activities";
             path = path.Replace("{format}", "json");
                 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
                                     if (name != null) formParams.Add("name", ApiClient.ParameterToString(name)); // form parameter
 if (type != null) formParams.Add("type", ApiClient.ParameterToString(type)); // form parameter
@@ -180,10 +180,10 @@ if (photoIds != null) formParams.Add("photo_ids", ApiClient.ParameterToString(ph
 if (commute != null) formParams.Add("commute", ApiClient.ParameterToString(commute)); // form parameter
                 
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            string[] authSettings = new [] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateActivity: " + response.Content, response.Content);
@@ -210,19 +210,19 @@ if (commute != null) formParams.Add("commute", ApiClient.ParameterToString(commu
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "id" + "}", ApiClient.ParameterToString(id));
     
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
              if (includeAllEfforts != null) queryParams.Add("include_all_efforts", ApiClient.ParameterToString(includeAllEfforts)); // query parameter
                                         
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
-            // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            // Make the HTTP request
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetActivityById: " + response.Content, response.Content);
@@ -250,20 +250,20 @@ if (commute != null) formParams.Add("commute", ApiClient.ParameterToString(commu
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "id" + "}", ApiClient.ParameterToString(id));
     
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
              if (page != null) queryParams.Add("page", ApiClient.ParameterToString(page)); // query parameter
  if (perPage != null) queryParams.Add("per_page", ApiClient.ParameterToString(perPage)); // query parameter
                                         
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetCommentsByActivityId: " + response.Content, response.Content);
@@ -291,20 +291,20 @@ if (commute != null) formParams.Add("commute", ApiClient.ParameterToString(commu
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "id" + "}", ApiClient.ParameterToString(id));
     
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
              if (page != null) queryParams.Add("page", ApiClient.ParameterToString(page)); // query parameter
  if (perPage != null) queryParams.Add("per_page", ApiClient.ParameterToString(perPage)); // query parameter
                                         
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            string[] authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetKudoersByActivityId: " + response.Content, response.Content);
@@ -330,18 +330,18 @@ if (commute != null) formParams.Add("commute", ApiClient.ParameterToString(commu
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "id" + "}", ApiClient.ParameterToString(id));
     
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
                                                     
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            string[] authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetLapsByActivityId: " + response.Content, response.Content);
@@ -366,22 +366,22 @@ if (commute != null) formParams.Add("commute", ApiClient.ParameterToString(commu
             var path = "/athlete/activities";
             path = path.Replace("{format}", "json");
                 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
              if (before != null) queryParams.Add("before", ApiClient.ParameterToString(before)); // query parameter
- if (after != null) queryParams.Add("after", ApiClient.ParameterToString(after)); // query parameter
- if (page != null) queryParams.Add("page", ApiClient.ParameterToString(page)); // query parameter
- if (perPage != null) queryParams.Add("per_page", ApiClient.ParameterToString(perPage)); // query parameter
+             if (after != null) queryParams.Add("after", ApiClient.ParameterToString(after)); // query parameter
+             if (page != null) queryParams.Add("page", ApiClient.ParameterToString(page)); // query parameter
+             if (perPage != null) queryParams.Add("per_page", ApiClient.ParameterToString(perPage)); // query parameter
                                         
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetLoggedInAthleteActivities: " + response.Content, response.Content);
@@ -407,18 +407,18 @@ if (commute != null) formParams.Add("commute", ApiClient.ParameterToString(commu
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "id" + "}", ApiClient.ParameterToString(id));
     
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
                                                     
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetZonesByActivityId: " + response.Content, response.Content);
@@ -445,19 +445,19 @@ if (commute != null) formParams.Add("commute", ApiClient.ParameterToString(commu
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "id" + "}", ApiClient.ParameterToString(id));
     
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
                                                 postBody = ApiClient.Serialize(body); // http body (model) parameter
     
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Put, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling UpdateActivityById: " + response.Content, response.Content);

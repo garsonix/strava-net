@@ -1,55 +1,50 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text.RegularExpressions;
-using System.IO;
-using System.Web;
-using System.Linq;
-using System.Net;
-using System.Text;
 using Newtonsoft.Json;
 using RestSharp;
-using RestSharp.Extensions;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Web;
 
 namespace Strava.NET.Client
 {
     /// <summary>
-    /// API client is mainly responible for making the HTTP call to the API backend.
+    /// API client is mainly responsible for making the HTTP call to the API backend.
     /// </summary>
     public class ApiClient
     {
-        private readonly Dictionary<String, String> _defaultHeaderMap = new Dictionary<String, String>();
-  
+        private readonly Dictionary<string, string> _defaultHeaderMap = new Dictionary<string, string>();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClient" /> class.
         /// </summary>
         /// <param name="basePath">The base path.</param>
-        public ApiClient(String basePath="https://www.strava.com/api/v3")
+        public ApiClient(string basePath = "https://www.strava.com/api/v3")
         {
             BasePath = basePath;
             RestClient = new RestClient(BasePath);
         }
-    
+
         /// <summary>
         /// Gets or sets the base path.
         /// </summary>
         /// <value>The base path</value>
         public string BasePath { get; set; }
-    
+
         /// <summary>
         /// Gets or sets the RestClient.
         /// </summary>
         /// <value>An instance of the RestClient</value>
         public RestClient RestClient { get; set; }
-    
+
         /// <summary>
         /// Gets the default header.
         /// </summary>
-        public Dictionary<String, String> DefaultHeader
+        public Dictionary<string, string> DefaultHeader
         {
             get { return _defaultHeaderMap; }
         }
-    
+
         /// <summary>
         /// Makes the HTTP request (Sync).
         /// </summary>
@@ -62,34 +57,38 @@ namespace Strava.NET.Client
         /// <param name="fileParams">File parameters.</param>
         /// <param name="authSettings">Authentication settings.</param>
         /// <returns>Object</returns>
-        public Object CallApi(String path, RestSharp.Method method, Dictionary<String, String> queryParams, String postBody,
-            Dictionary<String, String> headerParams, Dictionary<String, String> formParams, 
-            Dictionary<String, FileParameter> fileParams, String[] authSettings)
+        public Object CallApi(string path, Method method, Dictionary<string, string> queryParams, string postBody,
+            Dictionary<string, string> headerParams, Dictionary<string, string> formParams,
+            Dictionary<string, FileParameter> fileParams, string[] authSettings)
         {
 
             var request = new RestRequest(path, method);
-   
+
             UpdateParamsForAuth(queryParams, headerParams, authSettings);
 
             // add default header, if any
-            foreach(var defaultHeader in _defaultHeaderMap)
+            foreach (var defaultHeader in _defaultHeaderMap)
                 request.AddHeader(defaultHeader.Key, defaultHeader.Value);
 
             // add header parameter, if any
-            foreach(var param in headerParams)
+            foreach (var param in headerParams)
                 request.AddHeader(param.Key, param.Value);
 
             // add query parameter, if any
-            foreach(var param in queryParams)
+            foreach (var param in queryParams)
                 request.AddParameter(param.Key, param.Value, ParameterType.GetOrPost);
 
             // add form parameter, if any
-            foreach(var param in formParams)
+            foreach (var param in formParams)
                 request.AddParameter(param.Key, param.Value, ParameterType.GetOrPost);
 
             // add file parameter, if any
-            foreach(var param in fileParams)
-                request.AddFile(param.Value.Name, param.Value.Writer, param.Value.FileName, param.Value.ContentType);
+            /*foreach(var param in fileParams)
+                request.AddFile(param.Value.Name, param.Value.Writer, param.Value.FileName, param.Value.ContentType);*/
+            if (fileParams != null)
+            {
+                throw new NotImplementedException("Todo: File params have changed. Need to work out newer way.");
+            }
 
             if (postBody != null) // http body (model) parameter
                 request.AddParameter("application/json", postBody, ParameterType.RequestBody);
@@ -97,7 +96,7 @@ namespace Strava.NET.Client
             return (Object)RestClient.Execute(request);
 
         }
-    
+
         /// <summary>
         /// Add default header.
         /// </summary>
@@ -108,7 +107,7 @@ namespace Strava.NET.Client
         {
             _defaultHeaderMap.Add(key, value);
         }
-    
+
         /// <summary>
         /// Escape string (url-encoded).
         /// </summary>
@@ -116,9 +115,9 @@ namespace Strava.NET.Client
         /// <returns>Escaped string.</returns>
         public string EscapeString(string str)
         {
-            return RestSharp.Contrib.HttpUtility.UrlEncode(str);
+            return HttpUtility.UrlEncode(str);
         }
-    
+
         /// <summary>
         /// Create FileParameter based on Stream.
         /// </summary>
@@ -127,12 +126,13 @@ namespace Strava.NET.Client
         /// <returns>FileParameter.</returns>
         public FileParameter ParameterToFile(string name, Stream stream)
         {
-            if (stream is FileStream)
-                return FileParameter.Create(name, stream.ReadAsBytes(), Path.GetFileName(((FileStream)stream).Name));
-            else
-                return FileParameter.Create(name, stream.ReadAsBytes(), "no_file_name_provided");
+            var fileName = (stream is FileStream fileStream)
+                ? Path.GetFileName(fileStream.Name)
+                : "no_file_name_provided";
+
+            return FileParameter.Create(name, () => stream, fileName);
         }
-    
+
         /// <summary>
         /// If parameter is DateTime, output in a formatted string (default ISO 8601), customizable with Configuration.DateTime.
         /// If parameter is a list of string, join the list with ",".
@@ -142,14 +142,14 @@ namespace Strava.NET.Client
         /// <returns>Formatted string.</returns>
         public string ParameterToString(object obj)
         {
-            if (obj is DateTime)
+            if (obj is DateTime date)
                 // Return a formatted date string - Can be customized with Configuration.DateTimeFormat
                 // Defaults to an ISO 8601, using the known as a Round-trip date/time pattern ("o")
                 // https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx#Anchor_8
                 // For example: 2009-06-15T13:45:30.0000000
-                return ((DateTime)obj).ToString (Configuration.DateTimeFormat);
-            else if (obj is List<string>)
-                return String.Join(",", (obj as List<string>).ToArray());
+                return date.ToString (Configuration.DateTimeFormat);
+            else if (obj is List<string> list)
+                return string.Join(",", list.ToArray());
             else
                 return Convert.ToString (obj);
         }
@@ -161,16 +161,16 @@ namespace Strava.NET.Client
         /// <param name="type">Object type.</param>
         /// <param name="headers">HTTP headers.</param>
         /// <returns>Object representation of the JSON string.</returns>
-        public object Deserialize(string content, Type type, IList<Parameter> headers=null)
+        public object Deserialize(string content, Type type, IEnumerable<HeaderParameter> headers=null)
         {
-            if (type == typeof(Object)) // return an object
+            if (type == typeof(object)) // return an object
             {
                 return content;
             }
 
             if (type == typeof(Stream))
             {
-                var filePath = String.IsNullOrEmpty(Configuration.TempFolderPath)
+                var filePath = string.IsNullOrEmpty(Configuration.TempFolderPath)
                     ? Path.GetTempPath()
                     : Configuration.TempFolderPath;
 
@@ -184,7 +184,6 @@ namespace Strava.NET.Client
                 }
                 File.WriteAllText(fileName, content);
                 return new FileStream(fileName, FileMode.Open);
-
             }
 
             if (type.Name.StartsWith("System.Nullable`1[[System.DateTime")) // return a datetime object
@@ -192,7 +191,7 @@ namespace Strava.NET.Client
                 return DateTime.Parse(content,  null, System.Globalization.DateTimeStyles.RoundtripKind);
             }
 
-            if (type == typeof(String) || type.Name.StartsWith("System.Nullable")) // return primitive type
+            if (type == typeof(string) || type.Name.StartsWith("System.Nullable")) // return primitive type
             {
                 return ConvertType(content, type); 
             }
@@ -232,13 +231,11 @@ namespace Strava.NET.Client
         /// <returns>API key with prefix.</returns>
         public string GetApiKeyWithPrefix (string apiKeyIdentifier)
         {
-            var apiKeyValue = "";
-            Configuration.ApiKey.TryGetValue (apiKeyIdentifier, out apiKeyValue);
-            var apiKeyPrefix = "";
-            if (Configuration.ApiKeyPrefix.TryGetValue (apiKeyIdentifier, out apiKeyPrefix))
-                return apiKeyPrefix + " " + apiKeyValue;
-            else
-                return apiKeyValue;
+            Configuration.ApiKey.TryGetValue(apiKeyIdentifier, out var apiKeyValue);
+
+            return Configuration.ApiKeyPrefix.TryGetValue(apiKeyIdentifier, out var apiKeyPrefix)
+                ? $"{apiKeyPrefix} {apiKeyValue}"
+                : apiKeyValue;
         }
     
         /// <summary>
@@ -247,7 +244,7 @@ namespace Strava.NET.Client
         /// <param name="queryParams">Query parameters.</param>
         /// <param name="headerParams">Header parameters.</param>
         /// <param name="authSettings">Authentication settings.</param>
-        public void UpdateParamsForAuth(Dictionary<String, String> queryParams, Dictionary<String, String> headerParams, string[] authSettings)
+        public void UpdateParamsForAuth(Dictionary<string, string> queryParams, Dictionary<string, string> headerParams, string[] authSettings)
         {
             if (authSettings == null || authSettings.Length == 0)
                 return;
@@ -276,7 +273,7 @@ namespace Strava.NET.Client
         public static string Base64Encode(string text)
         {
             var textByte = System.Text.Encoding.UTF8.GetBytes(text);
-            return System.Convert.ToBase64String(textByte);
+            return Convert.ToBase64String(textByte);
         }
     
         /// <summary>
@@ -285,7 +282,7 @@ namespace Strava.NET.Client
         /// <param name="fromObject">Object to be casted</param>
         /// <param name="toObject">Target type</param>
         /// <returns>Casted object</returns>
-        public static Object ConvertType(Object fromObject, Type toObject) {
+        public static object ConvertType(object fromObject, Type toObject) {
             return Convert.ChangeType(fromObject, toObject);
         }
   

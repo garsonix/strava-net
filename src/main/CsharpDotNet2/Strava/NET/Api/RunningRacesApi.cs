@@ -94,18 +94,18 @@ namespace Strava.NET.Api
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "id" + "}", ApiClient.ParameterToString(id));
     
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
                                                     
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetRunningRaceById: " + response.Content, response.Content);
@@ -127,19 +127,19 @@ namespace Strava.NET.Api
             var path = "/running_races";
             path = path.Replace("{format}", "json");
                 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
              if (year != null) queryParams.Add("year", ApiClient.ParameterToString(year)); // query parameter
                                         
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetRunningRaces: " + response.Content, response.Content);

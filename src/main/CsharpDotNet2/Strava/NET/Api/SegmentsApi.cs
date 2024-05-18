@@ -128,11 +128,11 @@ namespace Strava.NET.Api
             var path = "/segments/explore";
             path = path.Replace("{format}", "json");
                 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
              if (bounds != null) queryParams.Add("bounds", ApiClient.ParameterToString(bounds)); // query parameter
  if (activityType != null) queryParams.Add("activity_type", ApiClient.ParameterToString(activityType)); // query parameter
@@ -140,10 +140,10 @@ namespace Strava.NET.Api
  if (maxCat != null) queryParams.Add("max_cat", ApiClient.ParameterToString(maxCat)); // query parameter
                                         
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling ExploreSegments: " + response.Content, response.Content);
@@ -178,11 +178,11 @@ namespace Strava.NET.Api
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "id" + "}", ApiClient.ParameterToString(id));
     
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
              if (gender != null) queryParams.Add("gender", ApiClient.ParameterToString(gender)); // query parameter
  if (ageGroup != null) queryParams.Add("age_group", ApiClient.ParameterToString(ageGroup)); // query parameter
@@ -195,10 +195,10 @@ namespace Strava.NET.Api
  if (perPage != null) queryParams.Add("per_page", ApiClient.ParameterToString(perPage)); // query parameter
                                         
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetLeaderboardBySegmentId: " + response.Content, response.Content);
@@ -221,20 +221,20 @@ namespace Strava.NET.Api
             var path = "/segments/starred";
             path = path.Replace("{format}", "json");
                 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
              if (page != null) queryParams.Add("page", ApiClient.ParameterToString(page)); // query parameter
  if (perPage != null) queryParams.Add("per_page", ApiClient.ParameterToString(perPage)); // query parameter
                                         
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetLoggedInAthleteStarredSegments: " + response.Content, response.Content);
@@ -260,18 +260,18 @@ namespace Strava.NET.Api
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "id" + "}", ApiClient.ParameterToString(id));
     
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
                                                     
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetSegmentById: " + response.Content, response.Content);
@@ -301,19 +301,19 @@ namespace Strava.NET.Api
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "id" + "}", ApiClient.ParameterToString(id));
     
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
     
                                     if (starred != null) formParams.Add("starred", ApiClient.ParameterToString(starred)); // form parameter
                 
             // authentication setting, if any
-            String[] authSettings = new String[] { "strava_oauth" };
+            var authSettings = new string[] { "strava_oauth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            var response = (RestResponse) ApiClient.CallApi(path, Method.Put, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling StarSegment: " + response.Content, response.Content);
