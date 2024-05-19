@@ -13,7 +13,7 @@ namespace Strava.NET.Client
     /// </summary>
     public class ApiClient
     {
-        private readonly Dictionary<string, string> _defaultHeaderMap = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _defaultHeaderMap = new ();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClient" /> class.
@@ -113,7 +113,7 @@ namespace Strava.NET.Client
         /// </summary>
         /// <param name="str">String to be escaped.</param>
         /// <returns>Escaped string.</returns>
-        public string EscapeString(string str)
+        public static string EscapeString(string str)
         {
             return HttpUtility.UrlEncode(str);
         }
@@ -124,7 +124,7 @@ namespace Strava.NET.Client
         /// <param name="name">Parameter name.</param>
         /// <param name="stream">Input stream.</param>
         /// <returns>FileParameter.</returns>
-        public FileParameter ParameterToFile(string name, Stream stream)
+        public static FileParameter ParameterToFile(string name, Stream stream)
         {
             var fileName = (stream is FileStream fileStream)
                 ? Path.GetFileName(fileStream.Name)
@@ -140,7 +140,7 @@ namespace Strava.NET.Client
         /// </summary>
         /// <param name="obj">The parameter (header, path, query, form).</param>
         /// <returns>Formatted string.</returns>
-        public string ParameterToString(object obj)
+        public static string ParameterToString(object obj)
         {
             if (obj is DateTime date)
                 // Return a formatted date string - Can be customized with Configuration.DateTimeFormat
@@ -161,7 +161,7 @@ namespace Strava.NET.Client
         /// <param name="type">Object type.</param>
         /// <param name="headers">HTTP headers.</param>
         /// <returns>Object representation of the JSON string.</returns>
-        public object Deserialize(string content, Type type, IEnumerable<HeaderParameter> headers=null)
+        public static object Deserialize(string content, Type type, IEnumerable<HeaderParameter> headers=null)
         {
             if (type == typeof(object)) // return an object
             {
@@ -212,7 +212,7 @@ namespace Strava.NET.Client
         /// </summary>
         /// <param name="obj">Object.</param>
         /// <returns>JSON string.</returns>
-        public string Serialize(object obj)
+        public static string Serialize(object obj)
         {
             try
             {
@@ -229,7 +229,7 @@ namespace Strava.NET.Client
         /// </summary>
         /// <param name="apiKeyIdentifier">API key identifier (authentication scheme).</param>
         /// <returns>API key with prefix.</returns>
-        public string GetApiKeyWithPrefix (string apiKeyIdentifier)
+        public static string GetApiKeyWithPrefix (string apiKeyIdentifier)
         {
             Configuration.ApiKey.TryGetValue(apiKeyIdentifier, out var apiKeyValue);
 

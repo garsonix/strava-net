@@ -61,9 +61,9 @@ namespace Strava.NET.Api
         /// </summary>
         /// <param name="basePath">The base path</param>
         /// <value>The base path</value>
-        public String GetBasePath(String basePath)
+        public string GetBasePath(String basePath)
         {
-            return this.ApiClient.BasePath;
+            return ApiClient.BasePath;
         }
     
         /// <summary>
